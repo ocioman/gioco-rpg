@@ -1,0 +1,42 @@
+\doxysection{s\+\_\+file\+Format Struct Reference}
+\hypertarget{structs__file_format}{}\label{structs__file_format}\index{s\_fileFormat@{s\_fileFormat}}
+
+
+Necessaria all\textquotesingle{}interazione con i file di salvataggio. Ogni volta che si avvia il gioco, l\textquotesingle{}array data verrà caricato con delle struct presenti in un file indice, in modo da poter mostrare le statistiche di ciascun salvataggio. I file di salvataggio avranno un nome del tipo "{}salvataggio0.\+bin"{}, quindi l\textquotesingle{}indice di data verrà usato per la stringa da inserire in fopen(). Si tratta di una rivisitazione dell\textquotesingle{}array dinamico (sostitutivo del vector di C++ dato che in C non è presente) visto a lezione nel modulo di teoria di laP.  
+
+
+
+
+{\ttfamily \+\#include $<$vector.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structs__file_format_acb5457b51cc6f87639aa0a6b68d146e0}\label{structs__file_format_acb5457b51cc6f87639aa0a6b68d146e0} 
+char {\bfseries data} \+[50]\+
+\item 
+\Hypertarget{structs__file_format_a6a38434df3c9976120e885dc13295bff}\label{structs__file_format_a6a38434df3c9976120e885dc13295bff} 
+int {\bfseries p\+Vita}
+\item 
+\Hypertarget{structs__file_format_a4e86795c0740ff43b04eedfbaa4f341a}\label{structs__file_format_a4e86795c0740ff43b04eedfbaa4f341a} 
+int {\bfseries monete}
+\item 
+\Hypertarget{structs__file_format_a159c64ebf18b2755e64f0b98aba49793}\label{structs__file_format_a159c64ebf18b2755e64f0b98aba49793} 
+int {\bfseries oggetti}
+\item 
+\Hypertarget{structs__file_format_ad979fec7ed6554b0e79db7197ef48647}\label{structs__file_format_ad979fec7ed6554b0e79db7197ef48647} 
+int {\bfseries missioni}
+\item 
+\Hypertarget{structs__file_format_a7f0773bf402e8877f30f842d1fda1ce6}\label{structs__file_format_a7f0773bf402e8877f30f842d1fda1ce6} 
+int {\bfseries deleted}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Necessaria all\textquotesingle{}interazione con i file di salvataggio. Ogni volta che si avvia il gioco, l\textquotesingle{}array data verrà caricato con delle struct presenti in un file indice, in modo da poter mostrare le statistiche di ciascun salvataggio. I file di salvataggio avranno un nome del tipo "{}salvataggio0.\+bin"{}, quindi l\textquotesingle{}indice di data verrà usato per la stringa da inserire in fopen(). Si tratta di una rivisitazione dell\textquotesingle{}array dinamico (sostitutivo del vector di C++ dato che in C non è presente) visto a lezione nel modulo di teoria di laP. 
+
+È presente una struct chiamata file\+Format, il cui scopo è quello memorizzare i dati principali del salvataggio (data, p\+Vita, monete, oggetti...), che verranno mostrati quando dal menù verrà selezionata l\textquotesingle{}opzione per caricare/\+eliminare un salvataggio. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+vector.\+h\end{DoxyCompactItemize}

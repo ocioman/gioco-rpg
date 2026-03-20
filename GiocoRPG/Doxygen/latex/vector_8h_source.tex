@@ -1,0 +1,108 @@
+\doxysection{vector.\+h}
+\hypertarget{vector_8h_source}{}\label{vector_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ Created\ by\ Lorenzo\ Andreotta\ on\ 09/01/26.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}stdbool.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}stdlib.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}stdio.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ PROGETTOINC\_VECTOR\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ PROGETTOINC\_VECTOR\_H}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//PROGETTOINC\_VECTOR\_H}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structs__file_format}{s\_fileFormat}}\{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{char}\ data[50];}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ pVita;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{int}\ monete;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{int}\ oggetti;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ missioni;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ deleted;}
+\DoxyCodeLine{00033\ \}fileFormat;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structs__vector}{s\_vector}}\{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ capacity;}
+\DoxyCodeLine{00038\ \ \ \ \ fileFormat\ *data;}
+\DoxyCodeLine{00039\ \}vector;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ vector*\ vCreate()\{}
+\DoxyCodeLine{00042\ \ \ \ \ vector*\ newV=(vector*)malloc(\textcolor{keyword}{sizeof}(vector));}
+\DoxyCodeLine{00043\ \ \ \ \ newV-\/>size=0;}
+\DoxyCodeLine{00044\ \ \ \ \ newV-\/>capacity=8;}
+\DoxyCodeLine{00045\ \ \ \ \ newV-\/>data=(fileFormat*)malloc(\textcolor{keyword}{sizeof}(fileFormat)*newV-\/>capacity);}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{if}(newV-\/>data==NULL)\ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ newV;}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ vFree(vector*\ v)\{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}(v-\/>data!=NULL)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ free(v-\/>data);}
+\DoxyCodeLine{00054\ \ \ \ \ free(v);}
+\DoxyCodeLine{00055\ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ vAdd(vector*\ v,\ fileFormat\ data)\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}(v-\/>size==v-\/>capacity)\{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ fileFormat*\ temp=(fileFormat*)\ realloc(v-\/>data,\ v-\/>capacity*2*\textcolor{keyword}{sizeof}(fileFormat));}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp==NULL)\ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ free(v-\/>data);\ \textcolor{comment}{//dato\ che\ sto\ facendo\ una\ shallow\ copy\ libero\ data\ altrimenti\ ogni\ volta\ che\ size\ supera\ capacity\ lascio\ allocata\ la\ zona\ di\ memoria\ più\ piccola}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ v-\/>data=temp;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ v-\/>capacity*=2;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ v-\/>data[v-\/>size]=data;}
+\DoxyCodeLine{00067\ \ \ \ \ v-\/>size++;}
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{void}\ vDelete(vector*\ v,\ \textcolor{keywordtype}{size\_t}\ index)\{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}(index>v-\/>size)\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ERROR:\ index\ out\ of\ bounds"{}});}
+\DoxyCodeLine{00073\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i=index;\ i<v-\/>size-\/1;\ i++)\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ v-\/>data[i]=v-\/>data[i+1];}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ v-\/>size-\/-\/;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*se\ dopo\ l'eliminazione\ la\ dimensione\ "{}logica"{}\ (se\ avevi\ la\ mongelli\ per\ informatica\ sai\ cos'è)\ è\ minore\ di\ 1/4\ di\ quella\ "{}fisica"{}\ allora}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ dimezzo\ la\ dimensione\ di\ data\ per\ non\ sprecare\ memoria*/}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(v-\/>capacity>8\&\&v-\/>size<v-\/>capacity/4)\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ fileFormat*\ temp=(fileFormat*)realloc(v-\/>data,\ (v-\/>capacity/2)*\textcolor{keyword}{sizeof}(fileFormat));}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp==NULL)\ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ free(v-\/>data);\ \textcolor{comment}{//stesso\ motivo\ descritto\ sopra}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ v-\/>data=temp;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ v-\/>capacity=v-\/>capacity/2;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ fileFormat\ vGet(vector*\ v,\ \textcolor{keywordtype}{size\_t}\ index)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ v-\/>size)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}ERROR:\ index\ out\ of\ bounds\(\backslash\)n"{}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fileFormat)\ \{\textcolor{stringliteral}{"{}"{}},\ 0,\ 0,\ 0,\ 0,\};}
+\DoxyCodeLine{00096\ \ \ \ \ \}\ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v-\/>data[index];}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{void}\ vPrint(vector*\ v)\{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}(v-\/>size>0)\{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 0;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<v-\/>size;\ i++)\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\%d.\ "{}},\ i+1);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)t"{}},\ v-\/>data[i].data);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\ P.\ VITA\(\backslash\)t"{}},\ v-\/>data[i].pVita);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\ MONETE\(\backslash\)t"{}},\ v-\/>data[i].monete);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\ OGGETTI\ \(\backslash\)t"{}},\ v-\/>data[i].oggetti);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%d\ MISSIONI\ COMPLETATE\ \(\backslash\)t"{}},\ v-\/>data[i].missioni);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00112\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)nNessun\ salvataggio\ presente"{}});}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \}}
+
+\end{DoxyCode}
